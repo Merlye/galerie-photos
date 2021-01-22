@@ -20,13 +20,13 @@ Le fichier "db.js" permet de crééer un "pool" pour connecter le serveur à la 
 
 5. Alimenter la base de données en renseignant un champ "title" pour le titre, "description" pour la description et "path" pour le chemin d'accès de la photo
 
-Exemple de requête POST sur la BDD au format JSON (http://localhost:5000/galerie) :
+Exemple de requête POST sur la BDD au format JSON (http://localhost:5000/photos) :
 {
     "title" : "titre 1",
     "description" : "description 1",
-    "path" : "/static/photos/img_1.jpg"
+    "path" : "/static/photos/photo_1.jpg"
 }
-NB : le nom de fichier de l'image ici est "img_1"
+NB : le nom de fichier de la photo ici est "photo_1"
 
 
 6. Exécution des processus côté client et serveur pour tester le bon fonctionnement de l'application

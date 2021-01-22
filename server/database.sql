@@ -1,8 +1,8 @@
 CREATE DATABASE galerie;
 
-DROP TABLE galerie1;
+DROP TABLE galerie;
 
-CREATE TABLE galerie1(
+CREATE TABLE photos(
     img_id SERIAL PRIMARY KEY,
     title VARCHAR(255),
     description VARCHAR(255),
