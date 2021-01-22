@@ -1,7 +1,5 @@
 export function Card(props) {
 
-    console.log(props)
-
     return (
             <div className="card">
                 <img src={props.path} className="card-img-top" alt={props.id} />
