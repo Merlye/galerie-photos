@@ -42,7 +42,7 @@ app.get("/photos/:id", async (req, res) => {
   try {
     // console.log(req.params);
     const { id } = req.params;
-    const photo = await pool.query("SELECT * FROM photos WHERE img_id = $1;", [id]);
+    const photo = await pool.query("SELECT * FROM photos WHERE photo_id = $1;", [id]);
 
     res.json(photo.rows[0]);
   } catch (error) {
@@ -56,9 +56,9 @@ app.put("/photos/:id", async (req, res) => {
 
     const { id } = req.params;
     const { title, description, path } = req.body;
-    await pool.query("UPDATE photos SET title = $1 WHERE img_id = $2;", [title, id]);
-    await pool.query("UPDATE photos SET description = $1 WHERE img_id = $2;", [description, id]);
-    await pool.query("UPDATE photos SET path = $1 WHERE img_id = $2;", [path, id]);
+    await pool.query("UPDATE photos SET title = $1 WHERE photo_id = $2;", [title, id]);
+    await pool.query("UPDATE photos SET description = $1 WHERE photo_id = $2;", [description, id]);
+    await pool.query("UPDATE photos SET path = $1 WHERE photo_id = $2;", [path, id]);
     res.json("La photo a été mise à jour")
 
   } catch (error) {
@@ -80,7 +80,7 @@ app.delete("/photos", async (req, res) => {
 app.delete("/photos/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    await pool.query("DELETE FROM photos WHERE img_id = $1", [id]);
+    await pool.query("DELETE FROM photos WHERE photo_id = $1", [id]);
     res.json('La photo a été supprimée')
   } catch (error) {
     console.log(error.message);
