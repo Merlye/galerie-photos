@@ -13,12 +13,12 @@ app.use(express.json());
 //ROUTES//
 
 // create
-app.post("/galerie1", async (req, res) => {
+app.post("/photos", async (req, res) => {
   try {
     //console.log(req.body);
     const { description, title, path } = req.body;
     const newPhoto = await pool.query(
-      "INSERT INTO galerie1 (description, title, path) VALUES($1, $2, $3) RETURNING *;",
+      "INSERT INTO photos (description, title, path) VALUES($1, $2, $3) RETURNING *;",
       [description, title, path]
     );
     res.json(newPhoto.rows[0]);
@@ -28,9 +28,9 @@ app.post("/galerie1", async (req, res) => {
 });
 
 // get all
-app.get("/galerie1", async (req, res) => {
+app.get("/photos", async (req, res) => {
   try {
-    const allPhotos = await pool.query("SELECT * FROM galerie1;");
+    const allPhotos = await pool.query("SELECT * FROM photos;");
     res.json(allPhotos.rows)
   } catch (error) {
     console.error(error.message)
@@ -38,11 +38,11 @@ app.get("/galerie1", async (req, res) => {
 });
 
 // get
-app.get("/galerie1/:id", async (req, res) => {
+app.get("/photos/:id", async (req, res) => {
   try {
     // console.log(req.params);
     const { id } = req.params;
-    const photo = await pool.query("SELECT * FROM galerie1 WHERE img_id = $1;", [id]);
+    const photo = await pool.query("SELECT * FROM photos WHERE img_id = $1;", [id]);
 
     res.json(photo.rows[0]);
   } catch (error) {
@@ -51,14 +51,14 @@ app.get("/galerie1/:id", async (req, res) => {
 });
 
 // update
-app.put("/galerie1/:id", async (req, res) => {
+app.put("/photos/:id", async (req, res) => {
   try {
 
     const { id } = req.params;
     const { title, description, path } = req.body;
-    await pool.query("UPDATE galerie1 SET title = $1 WHERE img_id = $2;", [title, id]);
-    await pool.query("UPDATE galerie1 SET description = $1 WHERE img_id = $2;", [description, id]);
-    await pool.query("UPDATE galerie1 SET path = $1 WHERE img_id = $2;", [path, id]);
+    await pool.query("UPDATE photos SET title = $1 WHERE img_id = $2;", [title, id]);
+    await pool.query("UPDATE photos SET description = $1 WHERE img_id = $2;", [description, id]);
+    await pool.query("UPDATE photos SET path = $1 WHERE img_id = $2;", [path, id]);
     res.json("La photo a été mise à jour")
 
   } catch (error) {
@@ -67,9 +67,9 @@ app.put("/galerie1/:id", async (req, res) => {
 });
 
 // delete all
-app.delete("/galerie1", async (req, res) => {
+app.delete("/photos", async (req, res) => {
   try {
-    await pool.query("TRUNCATE TABLE galerie1 RESTART IDENTITY");
+    await pool.query("TRUNCATE TABLE photos RESTART IDENTITY");
     res.json('Toutes les photos ont été supprimées');
   } catch (error) {
     console.log(error.message);
@@ -77,10 +77,10 @@ app.delete("/galerie1", async (req, res) => {
 });
 
 // delete
-app.delete("/galerie1/:id", async (req, res) => {
+app.delete("/photos/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    await pool.query("DELETE FROM galerie1 WHERE img_id = $1", [id]);
+    await pool.query("DELETE FROM photos WHERE img_id = $1", [id]);
     res.json('La photo a été supprimée')
   } catch (error) {
     console.log(error.message);

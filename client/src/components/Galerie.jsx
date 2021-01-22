@@ -11,7 +11,7 @@ export class Galerie extends React.Component {
 
     getPhotos = async() => {
         try {
-            window.fetch("http://localhost:5000/galerie1").then(function (httpResponse) {
+            window.fetch("http://localhost:5000/photos").then(function (httpResponse) {
                 return httpResponse.json();
             })
             .then(jsonData => {
